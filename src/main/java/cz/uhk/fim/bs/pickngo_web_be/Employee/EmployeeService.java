@@ -1,6 +1,5 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
-import cz.uhk.fim.bs.pickngo_web_be.Role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +61,8 @@ public class EmployeeService {
             }
             employee.setLogin(login);
         }
+    }
+
+    public Optional<Employee> getEmployee(Long employeeId) { return employeeRepository.findById(employeeId);
     }
 }

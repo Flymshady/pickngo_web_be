@@ -1,9 +1,11 @@
 package cz.uhk.fim.bs.pickngo_web_be.Order;
 
+import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
 import cz.uhk.fim.bs.pickngo_web_be.User.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,18 +18,22 @@ public class Order {
     private User user;
     private double price;
     private Date date;
+    private int state;
+    private List<Item> items;
 
-    public Order(User user, double price, Date date) {
+    public Order(User user, double price, Date date, int state, List<Item> items) {
         this.user = user;
         this.price = price;
         this.date = date;
+        this.state = state;
+        this.items = items;
     }
 
-    public Order(Long id, User user, double price, Date date) {
-        this.id = id;
+    public Order(User user, double price, Date date, int state) {
         this.user = user;
         this.price = price;
         this.date = date;
+        this.state = state;
     }
 
     public Order(){}
@@ -64,6 +70,22 @@ public class Order {
         this.date = date;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -71,6 +93,8 @@ public class Order {
                 ", user=" + user +
                 ", price=" + price +
                 ", date=" + date +
+                ", state=" + state +
+                ", items=" + items +
                 '}';
     }
 }
