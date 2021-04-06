@@ -1,6 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
-import cz.uhk.fim.bs.pickngo_web_be.Role.Role;
+import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
 
 import javax.persistence.*;
 
@@ -16,23 +16,24 @@ public class Employee {
     private String lastname;
     private String login;
     private String password;
-    private Role role;
+    @ManyToOne
+    private EmployeeRole employeeRole;
 
-    public Employee(String firstname, String lastname, String login, String password, Role role) {
+    public Employee(String firstname, String lastname, String login, String password, EmployeeRole employeeRole) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.employeeRole = employeeRole;
     }
 
-    public Employee(Long id,String firstname, String lastname, String login, String password, Role role) {
+    public Employee(Long id,String firstname, String lastname, String login, String password, EmployeeRole employeeRole) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.employeeRole = employeeRole;
     }
 
     public Employee(){}
@@ -77,12 +78,12 @@ public class Employee {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public EmployeeRole getEmployeeRole() {
+        return employeeRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setEmployeeRole(EmployeeRole employeeRole) {
+        this.employeeRole = employeeRole;
     }
 
     @Override
@@ -93,7 +94,7 @@ public class Employee {
                 ", lastname='" + lastname + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", employeeRole=" + employeeRole +
                 '}';
     }
 }

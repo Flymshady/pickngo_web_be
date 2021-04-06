@@ -1,7 +1,8 @@
-package cz.uhk.fim.bs.pickngo_web_be.Order;
+package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
-import cz.uhk.fim.bs.pickngo_web_be.User.User;
+import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,34 +10,37 @@ import java.util.List;
 
 @Entity
 @Table
-public class Order {
+public class BaguetteOrder {
 
     @Id
-    @SequenceGenerator(name="order_sequence", sequenceName = "order_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
+    @SequenceGenerator(name="baguette_order_sequence", sequenceName = "baguette_order_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "baguette_order_sequence")
     private Long id;
-    private User user;
+    @ManyToOne
+    private Customer customer;
     private double price;
     private Date date;
     private int state;
+    @JsonIgnore
+    @OneToMany(mappedBy = "baguetteOrder")
     private List<Item> items;
 
-    public Order(User user, double price, Date date, int state, List<Item> items) {
-        this.user = user;
+    public BaguetteOrder(Customer customer, double price, Date date, int state, List<Item> items) {
+        this.customer = customer;
         this.price = price;
         this.date = date;
         this.state = state;
         this.items = items;
     }
 
-    public Order(User user, double price, Date date, int state) {
-        this.user = user;
+    public BaguetteOrder(Customer customer, double price, Date date, int state) {
+        this.customer = customer;
         this.price = price;
         this.date = date;
         this.state = state;
     }
 
-    public Order(){}
+    public BaguetteOrder(){}
 
     public Long getId() {
         return id;
@@ -46,12 +50,12 @@ public class Order {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public double getPrice() {
@@ -88,9 +92,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "BaguetteOrder{" +
                 "id=" + id +
-                ", user=" + user +
+                ", customer=" + customer +
                 ", price=" + price +
                 ", date=" + date +
                 ", state=" + state +

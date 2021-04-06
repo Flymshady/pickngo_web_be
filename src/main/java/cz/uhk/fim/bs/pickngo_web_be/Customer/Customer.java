@@ -1,14 +1,14 @@
-package cz.uhk.fim.bs.pickngo_web_be.User;
+package cz.uhk.fim.bs.pickngo_web_be.Customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cz.uhk.fim.bs.pickngo_web_be.Order.Order;
+import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
-public class User {
+public class Customer {
     @Id
     @SequenceGenerator(name="user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
@@ -16,29 +16,30 @@ public class User {
     private String name;
     private String email;
     @JsonIgnore
-    private List<Order> orders;
+    @OneToMany(mappedBy = "customer")
+    private List<BaguetteOrder> baguetteOrders;
 
 
-    public User() {
+    public Customer() {
     }
 
 
 
-    public User(Long id, String name, String email) {
+    public Customer(Long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
 
-    public User(String name, String email) {
+    public Customer(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    public User(String name, String email, List<Order> orders) {
+    public Customer(String name, String email, List<BaguetteOrder> baguetteOrders) {
         this.name = name;
         this.email = email;
-        this.orders = orders;
+        this.baguetteOrders = baguetteOrders;
     }
 
     public Long getId() {
@@ -66,21 +67,21 @@ public class User {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<BaguetteOrder> getBaguetteOrders() {
+        return baguetteOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setBaguetteOrders(List<BaguetteOrder> baguetteOrders) {
+        this.baguetteOrders = baguetteOrders;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", orders=" + orders +
+                ", baguetteOrders=" + baguetteOrders +
                 '}';
     }
 }

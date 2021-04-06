@@ -1,4 +1,4 @@
-package cz.uhk.fim.bs.pickngo_web_be.User;
+package cz.uhk.fim.bs.pickngo_web_be.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -7,28 +7,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/user")
-public class UserController {
+public class CustomerController {
 
-    private final UserService userService;
+    private final CustomerService customerService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public List<Customer> getUsers() {
+        return customerService.getUsers();
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user){
-        userService.addNewUser(user);
+    public void registerNewUser(@RequestBody Customer customer){
+        customerService.addNewUser(customer);
     }
 
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Long userId){
-        userService.deleteUser(userId);
+        customerService.deleteUser(userId);
     }
 
     @PutMapping(path = "{userId}")
@@ -36,7 +36,7 @@ public class UserController {
             @PathVariable("userId") Long userId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email) {
-        userService.updateUser(userId, name, email);
+        customerService.updateUser(userId, name, email);
     }
 
 }
