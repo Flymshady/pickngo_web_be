@@ -19,26 +19,27 @@ public class IngredientController {
     }
 
     @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Ingredient> getIngredients() {
         return ingredientService.getIngredients();
     }
 
-    @GetMapping(path = "{ingredientName}")
+    @RequestMapping(value = "/detail/{ingredientName}", method = RequestMethod.GET)
     public Optional<Ingredient> getIngredientByName(@PathVariable("ingredientName") String ingredientName) {
         return ingredientService.getIngredientsByName(ingredientName);
     }
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void createNewIngredient(@RequestBody Ingredient ingredient){
         ingredientService.addNewIngredient(ingredient);
     }
 
-    @DeleteMapping(path = "{ingredientId}")
+    @RequestMapping(value = "/remove/{ingredientId}", method = RequestMethod.DELETE)
     public void deleteIngredient(@PathVariable("ingredientId") Long ingredientId){
         ingredientService.deleteIngredient(ingredientId);
     }
 
-    @PutMapping(path = "{ingredientId}")
+    @RequestMapping(value = "/update/{ingredientId}", method = RequestMethod.PUT)
     public void updateUser(
             @PathVariable("ingredientId") Long ingredientId,
             @RequestParam(required = false) String name,

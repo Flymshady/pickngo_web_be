@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/user")
+@RequestMapping(path="/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -16,22 +16,22 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Customer> getUsers() {
         return customerService.getUsers();
     }
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void registerNewUser(@RequestBody Customer customer){
         customerService.addNewUser(customer);
     }
 
-    @DeleteMapping(path = "{userId}")
+    @RequestMapping(value = "/remove/{userId}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable("userId") Long userId){
         customerService.deleteUser(userId);
     }
 
-    @PutMapping(path = "{userId}")
+    @RequestMapping(value = "/update/{userId}", method = RequestMethod.PUT)
     public void updateUser(
             @PathVariable("userId") Long userId,
             @RequestParam(required = false) String name,

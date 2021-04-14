@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/ingredienttype")
+@RequestMapping(path="/ingredientType")
 public class IngredientTypeController {
 
     private final IngredientTypeService ingredientTypeService;
@@ -17,23 +17,23 @@ public class IngredientTypeController {
         this.ingredientTypeService = ingredientTypeService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<IngredientType> getIngredientTypes() {
         return ingredientTypeService.getIngredientTypes();
     }
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void createNewIngredientType(@RequestBody IngredientType ingredientType){
         ingredientTypeService.addNewIngredientType(ingredientType);
     }
 
-    @DeleteMapping(path = "{ingredientTypeId}")
-    public void deleteUser(@PathVariable("ingredientTypeId") Long ingredientTypeId){
+    @RequestMapping(value = "/remove/{ingredientTypeId}", method = RequestMethod.DELETE)
+    public void deleteIngredientType(@PathVariable("ingredientTypeId") Long ingredientTypeId){
         ingredientTypeService.deleteIngredientType(ingredientTypeId);
     }
 
-    @PutMapping(path = "{ingredientTypeId}")
-    public void updateUser(
+    @RequestMapping(value = "/update/{ingredientTypeId}", method = RequestMethod.PUT)
+    public void updateIngredientType(
             @PathVariable("ingredientTypeId") Long ingredientTypeId,
             @RequestParam(required = false) String name) {
         ingredientTypeService.updateIngredientType(ingredientTypeId, name);

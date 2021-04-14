@@ -18,17 +18,17 @@ public class BaguetteOrderController {
         this.baguetteOrderService = baguetteOrderService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<BaguetteOrder> getBaguetteOrders() {
         return baguetteOrderService.getBaguetteOrders();
     }
 
-    @GetMapping(path = "{customerId}")
+    @RequestMapping(value = "/allByCustomer/{customerId}", method = RequestMethod.GET)
     public List<Optional<BaguetteOrder>> getBaguetteOrdersByCustomer(@PathVariable("customerId") Long customerId) {
         return baguetteOrderService.getBaguetteOrdersByCustomer(customerId);
     }
 
-    @PutMapping(path = "{baguetteOrderId}")
+    @RequestMapping(value = "/update/{baguetteOrderId}", method = RequestMethod.PUT)
     public void updateCustomer(
             @PathVariable("baguetteOrderId") Long baguetteOrderId,
             @RequestParam(required = false) int state) {

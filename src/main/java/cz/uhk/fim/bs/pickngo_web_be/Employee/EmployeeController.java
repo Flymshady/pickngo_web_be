@@ -1,7 +1,13 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
+import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
+import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,28 +23,29 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Employee> getEmployees() {
         return employeeService.getEmployees();
     }
 
-    @GetMapping(path = "{employeeId}")
+    @RequestMapping(value = "/detail/{employeeId}", method = RequestMethod.GET)
     public Optional<Employee> getEmployee(
             @PathVariable("employeeId") Long employeeId) {
         return  employeeService.getEmployee(employeeId);
     }
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void registerNewEmployee(@RequestBody Employee employee){
         employeeService.addNewEmployee(employee);
     }
 
-    @DeleteMapping(path = "{employeeId}")
+    @RequestMapping(value = "/remove/{employeeId}", method = RequestMethod.DELETE)
     public void deleteEmployee(@PathVariable("employeeId") Long employeeId){
         employeeService.deleteEmployee(employeeId);
     }
 
-    @PutMapping(path = "{employeeId}")
+
+    @RequestMapping(value = "/update/{employeeId}", method = RequestMethod.PUT)
     public void updateEmployee(
             @PathVariable("employeeId") Long employeeId,
             @RequestParam(required = false) String firstname,
