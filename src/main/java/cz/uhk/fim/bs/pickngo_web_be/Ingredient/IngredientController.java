@@ -18,7 +18,6 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Ingredient> getIngredients() {
         return ingredientService.getIngredients();

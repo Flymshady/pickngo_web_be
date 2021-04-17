@@ -15,6 +15,7 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
+    private String email_short;
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<BaguetteOrder> baguetteOrders;
@@ -25,20 +26,23 @@ public class Customer {
 
 
 
-    public Customer(Long id, String name, String email) {
+    public Customer(Long id, String name, String email, String email_short) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.email_short = email_short;
     }
 
-    public Customer(String name, String email) {
+    public Customer(String name, String email, String email_short) {
         this.name = name;
         this.email = email;
+        this.email_short =email_short;
     }
 
-    public Customer(String name, String email, List<BaguetteOrder> baguetteOrders) {
+    public Customer(String name, String email, String email_short, List<BaguetteOrder> baguetteOrders) {
         this.name = name;
         this.email = email;
+        this.email_short = email_short;
         this.baguetteOrders = baguetteOrders;
     }
 
@@ -66,6 +70,13 @@ public class Customer {
         this.email = email;
     }
 
+    public String getEmail_short() {
+        return email_short;
+    }
+
+    public void setEmail_short(String email_short) {
+        this.email_short = email_short;
+    }
 
     public List<BaguetteOrder> getBaguetteOrders() {
         return baguetteOrders;
@@ -81,6 +92,7 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", email_short='" + email_short + '\'' +
                 ", baguetteOrders=" + baguetteOrders +
                 '}';
     }
