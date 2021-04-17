@@ -15,7 +15,7 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    private String email_short;
+    private String emailShort;
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<BaguetteOrder> baguetteOrders;
@@ -26,23 +26,23 @@ public class Customer {
 
 
 
-    public Customer(Long id, String name, String email, String email_short) {
+    public Customer(Long id, String name, String email, String emailShort) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.email_short = email_short;
+        this.emailShort = emailShort;
     }
 
-    public Customer(String name, String email, String email_short) {
+    public Customer(String name, String email, String emailShort) {
         this.name = name;
         this.email = email;
-        this.email_short =email_short;
+        this.emailShort = emailShort;
     }
 
-    public Customer(String name, String email, String email_short, List<BaguetteOrder> baguetteOrders) {
+    public Customer(String name, String email, String emailShort, List<BaguetteOrder> baguetteOrders) {
         this.name = name;
         this.email = email;
-        this.email_short = email_short;
+        this.emailShort = emailShort;
         this.baguetteOrders = baguetteOrders;
     }
 
@@ -70,12 +70,12 @@ public class Customer {
         this.email = email;
     }
 
-    public String getEmail_short() {
-        return email_short;
+    public String getEmailShort() {
+        return emailShort;
     }
 
-    public void setEmail_short(String email_short) {
-        this.email_short = email_short;
+    public void setEmailShort(String emailShort) {
+        this.emailShort = emailShort;
     }
 
     public List<BaguetteOrder> getBaguetteOrders() {
@@ -92,7 +92,7 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", email_short='" + email_short + '\'' +
+                ", emailShort='" + emailShort + '\'' +
                 ", baguetteOrders=" + baguetteOrders +
                 '}';
     }
