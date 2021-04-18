@@ -29,6 +29,10 @@ public class CustomUserDetails implements UserDetails {
         return this.employee.getId();
     }
 
+    public String getRoleString(){
+        return this.employee.getEmployeeRole().getName();
+    }
+
     @Override
     public String getPassword() {
         return this.employee.getPassword();

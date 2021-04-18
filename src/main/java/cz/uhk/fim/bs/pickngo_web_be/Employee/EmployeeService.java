@@ -1,7 +1,12 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
+import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
+import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -12,10 +17,14 @@ import java.util.Optional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EmployeeRoleRepository employeeRoleRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder, EmployeeRoleRepository employeeRoleRepository) {
         this.employeeRepository = employeeRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.employeeRoleRepository = employeeRoleRepository;
     }
 
 
@@ -27,15 +36,35 @@ public class EmployeeService {
     public void addNewEmployee(Employee employee) {
         Optional<Employee> employeeOptional = employeeRepository.findEmployeeByLogin(employee.getLogin());
         if (employeeOptional.isPresent()) {
-            throw new IllegalStateException("email taken");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Uživatelské jméno je již obsazeno");
         }
+        String password = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(password);
+        EmployeeRole employeeRole = employeeRoleRepository.findByName("Employee");
+        employee.setEmployeeRole(employeeRole);
         employeeRepository.save(employee);
     }
+
+    public void addNewAdmin(Employee employee) {
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByLogin(employee.getLogin());
+        if (employeeOptional.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Uživatelské jméno je již obsazeno");
+        }
+        String password = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(password);
+        EmployeeRole employeeRole = employeeRoleRepository.findByName("Admin");
+        employee.setEmployeeRole(employeeRole);
+        employeeRepository.save(employee);
+    }
+
 
     public void deleteEmployee(Long employeeId) {
         boolean exists = employeeRepository.existsById(employeeId);
         if(!exists){
-            throw new IllegalStateException("employee with id "+ employeeId + " doesnt exist");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "employee with id "+ employeeId + " doesnt exist");
         }
         employeeRepository.deleteById(employeeId);
     }
@@ -57,7 +86,8 @@ public class EmployeeService {
         if (login !=null && login.length() > 0 && !Objects.equals(employee.getLogin(), login)){
             Optional<Employee> employeeOptional = employeeRepository.findEmployeeByLogin(login);
             if (employeeOptional.isPresent()){
-                throw new IllegalStateException("login taken");
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "login taken");
             }
             employee.setLogin(login);
         }

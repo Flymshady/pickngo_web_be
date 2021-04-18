@@ -3,7 +3,9 @@ package cz.uhk.fim.bs.pickngo_web_be.Ingredient;
 import cz.uhk.fim.bs.pickngo_web_be.IngredientType.IngredientType;
 import cz.uhk.fim.bs.pickngo_web_be.IngredientType.IngredientTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,7 +33,8 @@ public class IngredientService {
     public void addNewIngredient(Ingredient ingredient) {
         Optional<Ingredient> ingredientOptional = ingredientRepository.findIngredientByName(ingredient.getName());
         if (ingredientOptional.isPresent()) {
-            throw new IllegalStateException("name taken");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "name taken");
         }
         ingredientRepository.save(ingredient);
     }
@@ -39,8 +42,11 @@ public class IngredientService {
     public void deleteIngredient(Long ingredientId) {
         boolean exists = ingredientRepository.existsById(ingredientId);
         if(!exists){
-            throw new IllegalStateException("ingredient with id "+ ingredientId + " doesnt exist");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient with id "+ ingredientId+ "doesnt exist");
+
         }
+
         ingredientRepository.deleteById(ingredientId);
     }
     @Transactional
@@ -49,7 +55,8 @@ public class IngredientService {
         if (name !=null && name.length() > 0 && !Objects.equals(ingredient.getName(), name)){
             Optional<Ingredient> ingredientOptional = ingredientRepository.findIngredientByName(name);
             if (ingredientOptional.isPresent()){
-                throw new IllegalStateException("name taken");
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "name taken");
             }
             ingredient.setName(name);
         }
@@ -57,7 +64,10 @@ public class IngredientService {
         if (price  > 0.0 && !Objects.equals(ingredient.getPrice(), price)){
             ingredient.setPrice(price);
         }
-        IngredientType ingredientType = ingredientTypeRepository.findById(ingredientTypeId).orElseThrow(()-> new IllegalStateException("ingredient type with id "+ ingredientTypeId+ "doesnt exist"));
+        IngredientType ingredientType = ingredientTypeRepository.findById(ingredientTypeId).orElseThrow(()->
+            new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "ingredient type with id "+ ingredientTypeId+ "doesnt exist"));
+
         if (ingredientType !=null && !Objects.equals(ingredient.getIngredientType(), ingredientType)){
             ingredient.setIngredientType(ingredientType);
         }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Configuration
 public class CustomerConfig {
-
+/*
     @Bean
     CommandLineRunner commandLineRunner(CustomerRepository customerRepository){
         return args -> {
@@ -22,4 +22,6 @@ public class CustomerConfig {
         //    userRepository.saveAll(customers);
         };
     }
+
+ */
 }

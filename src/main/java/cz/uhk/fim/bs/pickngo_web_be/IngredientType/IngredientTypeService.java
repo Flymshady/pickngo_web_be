@@ -3,7 +3,9 @@ package cz.uhk.fim.bs.pickngo_web_be.IngredientType;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,7 +33,8 @@ public class IngredientTypeService {
     public void addNewIngredientType(IngredientType ingredientType) {
         Optional<IngredientType> ingredientTypeOptional = ingredientTypeRepository.findIngredientTypeByName(ingredientType.getName());
         if (ingredientTypeOptional.isPresent()) {
-            throw new IllegalStateException("name taken");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "name taken");
         }
         ingredientTypeRepository.save(ingredientType);
     }
@@ -39,22 +42,28 @@ public class IngredientTypeService {
     public void deleteIngredientType(Long ingredientTypeId) {
         boolean exists = ingredientTypeRepository.existsById(ingredientTypeId);
         if(!exists){
-            throw new IllegalStateException("ingredient type with id "+ ingredientTypeId + " doesnt exist");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient type with id"+ ingredientTypeId + " doesnt exist");
         }
         Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(ingredientTypeId);
         Optional<List<Ingredient>> ingredients = ingredientRepository.findAllByIngredientType(ingredientType);
         if(ingredients.isPresent()) {
-            throw new IllegalStateException("ingredient type is used for ingredients");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient type is used for ingredients");
         }
         ingredientTypeRepository.deleteById(ingredientTypeId);
     }
     @Transactional
     public void updateIngredientType(Long ingredientTypeId, String name){
-        IngredientType ingredientType = ingredientTypeRepository.findById(ingredientTypeId).orElseThrow(()-> new IllegalStateException("ingredient type with id "+ ingredientTypeId+ "doesnt exist"));
+        IngredientType ingredientType = ingredientTypeRepository.findById(ingredientTypeId).orElseThrow(()->
+        new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "ingredient type with id"+ ingredientTypeId+"doesnt exist"));
+
         if (name !=null && name.length() > 0 && !Objects.equals(ingredientType.getName(), name)){
             Optional<IngredientType> ingredientTypeOptional = ingredientTypeRepository.findIngredientTypeByName(name);
             if (ingredientTypeOptional.isPresent()){
-                throw new IllegalStateException("name taken");
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "name taken");
             }
             ingredientType.setName(name);
         }

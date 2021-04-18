@@ -19,6 +19,13 @@ public class Employee {
     @ManyToOne
     private EmployeeRole employeeRole;
 
+    public Employee(String firstname, String lastname, String login, String password){
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.login = login;
+        this.password = password;
+    }
+
     public Employee(String firstname, String lastname, String login, String password, EmployeeRole employeeRole) {
         this.firstname = firstname;
         this.lastname = lastname;

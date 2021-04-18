@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/employee/all").hasAnyRole("Admin", "Employee")
                 .antMatchers("/baguetteOrder/update/**").hasAnyRole("Employee", "Admin")
                 //to pod tim odkomentovat po vytvoreni roli a admina
-                .antMatchers("/employee/create","/employee/remove/**", "/employee/update/**" ).hasRole("Admin")
+       //vytvoreni admina zatim free :)       //  .antMatchers("/employee/admin/create/**").hasRole("Admin")
+                //vytvoreni roli zatim free :)       //  .antMatchers("/employeeRole/create/**").hasRole("Admin")
+             //   .antMatchers("/employee/create/**","/employee/remove/**", "/employee/update/**" ).hasRole("Admin")
                 .antMatchers("/role/all", "/role/detail/**", "/role/create", "/role/update/**", "/role/remove/**").hasRole("Admin")
                 .antMatchers("/ingredients/create", "/ingredients/update/**", "/ingredients/remove/**").hasRole("Admin")
                 .antMatchers("/ingredientType/create", "/ingredientType/update/**", "/ingredientType/remove/**").hasRole("Admin")
