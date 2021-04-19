@@ -56,6 +56,7 @@ public class CustomerService {
                         HttpStatus.BAD_REQUEST, "email taken");
             }
             customer.setEmail(email);
+            customerRepository.save(customer);
         }
     }
 }

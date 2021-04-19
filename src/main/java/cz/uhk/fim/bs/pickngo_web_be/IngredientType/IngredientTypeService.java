@@ -66,6 +66,7 @@ public class IngredientTypeService {
                         HttpStatus.BAD_REQUEST, "name taken");
             }
             ingredientType.setName(name);
+            ingredientTypeRepository.save(ingredientType);
         }
 
     }
