@@ -19,25 +19,25 @@ public class IngredientTypeController {
         this.ingredientTypeService = ingredientTypeService;
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<IngredientType> getIngredientTypes() {
         return ingredientTypeService.getIngredientTypes();
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void createNewIngredientType(@RequestBody IngredientType ingredientType){
         ingredientTypeService.addNewIngredientType(ingredientType);
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/remove/{ingredientTypeId}", method = RequestMethod.DELETE)
     public void deleteIngredientType(@PathVariable("ingredientTypeId") Long ingredientTypeId){
         ingredientTypeService.deleteIngredientType(ingredientTypeId);
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/update/{ingredientTypeId}", method = RequestMethod.PUT)
     public void updateIngredientType(
             @PathVariable("ingredientTypeId") Long ingredientTypeId,

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path="/employeeRole")
+@RequestMapping(path="/role")
 public class EmployeeRoleController {
 
     private final EmployeeRoleService employeeRoleService;
@@ -20,20 +20,20 @@ public class EmployeeRoleController {
         this.employeeRoleService = employeeRoleService;
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<EmployeeRole> getEmployeeRoles() {
         return employeeRoleService.getEmployeeRoles();
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/detail/{employeeRoleId}", method = RequestMethod.GET)
     public Optional<EmployeeRole> getEmployeeRole(
             @PathVariable("employeeRoleId") Long employeeId) {
         return  employeeRoleService.getEmployeeRole(employeeId);
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void registerNewEmployeeRole(@RequestBody EmployeeRole employeeRole){
         employeeRoleService.addNewEmployeeRole(employeeRole);

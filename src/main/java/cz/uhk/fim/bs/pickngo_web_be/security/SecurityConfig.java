@@ -2,6 +2,7 @@ package cz.uhk.fim.bs.pickngo_web_be.security;
 
 import cz.uhk.fim.bs.pickngo_web_be.CustomUser.CustomUserDetailsService;
 import cz.uhk.fim.bs.pickngo_web_be.Employee.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -22,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService){
-        this.userDetailsService=userDetailsService;
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService){
+        this.userDetailsService=customUserDetailsService;
     }
 
     @Override
@@ -31,15 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/employee/all").hasAnyRole("Admin", "Employee")
-                .antMatchers("/baguetteOrder/update/**").hasAnyRole("Employee", "Admin")
+                .antMatchers("/employee/all").authenticated()
+                .antMatchers("/baguetteOrder/update/**").authenticated()
                 //to pod tim odkomentovat po vytvoreni roli a admina
        //vytvoreni admina zatim free :)       //  .antMatchers("/employee/admin/create/**").hasRole("Admin")
                 //vytvoreni roli zatim free :)       //  .antMatchers("/employeeRole/create/**").hasRole("Admin")
              //   .antMatchers("/employee/create/**","/employee/remove/**", "/employee/update/**" ).hasRole("Admin")
-                .antMatchers("/role/all", "/role/detail/**", "/role/create", "/role/update/**", "/role/remove/**").hasRole("Admin")
-                .antMatchers("/ingredients/create", "/ingredients/update/**", "/ingredients/remove/**").hasRole("Admin")
-                .antMatchers("/ingredientType/create", "/ingredientType/update/**", "/ingredientType/remove/**").hasRole("Admin")
+                .antMatchers("/role/all", "/role/detail/**", "/role/create", "/role/update/**", "/role/remove/**").hasAuthority("ROLE_Admin")
+                .antMatchers("/ingredients/create", "/ingredients/update/**", "/ingredients/remove/**").hasAuthority("ROLE_Admin")
+                .antMatchers("/ingredientType/create", "/ingredientType/update/**", "/ingredientType/remove/**").hasAuthority("ROLE_Admin")
+                .antMatchers("/item/all").hasAuthority("ROLE_Employee")
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic();

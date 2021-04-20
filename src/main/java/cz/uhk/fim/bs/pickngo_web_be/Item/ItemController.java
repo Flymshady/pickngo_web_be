@@ -21,7 +21,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Item> getItems() {
         return itemService.getItems();

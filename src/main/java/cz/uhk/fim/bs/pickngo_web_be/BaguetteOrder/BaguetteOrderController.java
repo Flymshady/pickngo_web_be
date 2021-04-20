@@ -20,19 +20,19 @@ public class BaguetteOrderController {
         this.baguetteOrderService = baguetteOrderService;
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<BaguetteOrder> getBaguetteOrders() {
         return baguetteOrderService.getBaguetteOrders();
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/allByCustomer/{customerId}", method = RequestMethod.GET)
     public List<Optional<BaguetteOrder>> getBaguetteOrdersByCustomer(@PathVariable("customerId") Long customerId) {
         return baguetteOrderService.getBaguetteOrdersByCustomer(customerId);
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/update/{baguetteOrderId}", method = RequestMethod.PUT)
     public void updateCustomer(
             @PathVariable("baguetteOrderId") Long baguetteOrderId,
