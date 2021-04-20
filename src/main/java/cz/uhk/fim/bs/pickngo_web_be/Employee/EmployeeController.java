@@ -24,13 +24,13 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Employee> getEmployees() {
         return employeeService.getEmployees();
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_Employee"})
+
     @RequestMapping(value = "/detail/{employeeId}", method = RequestMethod.GET)
     public Optional<Employee> getEmployee(
             @PathVariable("employeeId") Long employeeId) {

@@ -48,6 +48,7 @@ public class BaguetteOrderService {
                 HttpStatus.BAD_REQUEST, "baguette order with id "+ baguetteOrderId+ "doesnt exist"));
         if (!Objects.equals(baguetteOrder.getState(), state)){
             baguetteOrder.setState(state);
+            baguetteOrderRepository.save(baguetteOrder);
         }
     }
 }

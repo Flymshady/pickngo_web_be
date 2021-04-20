@@ -90,6 +90,7 @@ public class EmployeeService {
                         HttpStatus.BAD_REQUEST, "login taken");
             }
             employee.setLogin(login);
+            employeeRepository.save(employee);
         }
     }
 

@@ -71,6 +71,7 @@ public class IngredientService {
         if (ingredientType !=null && !Objects.equals(ingredient.getIngredientType(), ingredientType)){
             ingredient.setIngredientType(ingredientType);
         }
+        ingredientRepository.save(ingredient);
 
     }
 
