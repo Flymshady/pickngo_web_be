@@ -40,6 +40,15 @@ public class BaguetteOrderService {
         return baguetteOrderRepository.findAllByCustomer(customerOptional);
     }
 
+    public BaguetteOrder getBaguetteOrderById(Long baguetteOrderId) {
+        Optional<BaguetteOrder> baguetteOrder = baguetteOrderRepository.findById(baguetteOrderId);
+        if(!baguetteOrder.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "baguette order with id "+ baguetteOrderId + " doesnt exist");
+        }
+        return baguetteOrder.get();
+    }
+
 
     @Transactional
     public void updateBaguetteOrder(Long  baguetteOrderId, int state){
