@@ -69,7 +69,7 @@ public class EmployeeService {
         employeeRepository.deleteById(employeeId);
     }
     @Transactional
-    public void updateEmployee(Long  employeeId, String firstname, String lastname, String login, String password){
+    public void updateEmployee(Long  employeeId, String firstname, String lastname, String login, String password, Long roleId){
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(()-> new IllegalStateException("employee with id "+ employeeId+ "doesnt exist"));
         if (firstname !=null && firstname.length() > 0 && !Objects.equals(employee.getFirstname(), firstname)){
             employee.setFirstname(firstname);
@@ -90,8 +90,13 @@ public class EmployeeService {
                         HttpStatus.BAD_REQUEST, "login taken");
             }
             employee.setLogin(login);
-            employeeRepository.save(employee);
         }
+
+        if (roleId != null) {
+            Optional<EmployeeRole> employeeRoleOptional = employeeRoleRepository.findById(roleId);
+            employeeRoleOptional.ifPresent(employee::setEmployeeRole);
+        }
+        employeeRepository.save(employee);
     }
 
     public Optional<Employee> getEmployee(Long employeeId) { return employeeRepository.findById(employeeId);
