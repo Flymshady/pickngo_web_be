@@ -32,11 +32,16 @@ public class BaguetteOrderController {
         return baguetteOrderService.getBaguetteOrdersByCustomer(customerId);
     }
 
-
     @RequestMapping(value = "/update/{baguetteOrderId}", method = RequestMethod.PUT)
     public void updateCustomer(
             @PathVariable("baguetteOrderId") Long baguetteOrderId,
             @RequestParam(required = false) int state) {
         baguetteOrderService.updateBaguetteOrder(baguetteOrderId, state);
+    }
+
+    @RequestMapping(value = "/detail/{baguetteOrderId}", method = RequestMethod.GET)
+    public BaguetteOrder getBaguetteOrder(@PathVariable("baguetteOrderId") Long baguetteOrderId){
+
+        return baguetteOrderService.getBaguetteOrderById(baguetteOrderId);
     }
 }
