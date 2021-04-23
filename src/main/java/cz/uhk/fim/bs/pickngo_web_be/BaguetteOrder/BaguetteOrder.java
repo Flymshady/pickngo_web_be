@@ -1,6 +1,7 @@
 package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 
@@ -22,17 +23,17 @@ public class BaguetteOrder {
     private Date date;
     private int state;
     private String note;
-    @JsonIgnore
+   // @JsonIgnore
     @OneToMany(mappedBy = "baguetteOrder")
-    private List<Item> items;
+    private List<BaguetteItem> baguetteItems;
 
-    public BaguetteOrder(Customer customer, double price, Date date, int state, String note, List<Item> items) {
+    public BaguetteOrder(Customer customer, double price, Date date, int state, String note, List<BaguetteItem> baguetteItems) {
         this.customer = customer;
         this.price = price;
         this.date = date;
         this.state = state;
         this.note = note;
-        this.items = items;
+        this.baguetteItems = baguetteItems;
     }
 
     public BaguetteOrder(Customer customer, double price, Date date, int state, String note) {
@@ -85,12 +86,12 @@ public class BaguetteOrder {
         this.state = state;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<BaguetteItem> getBaguetteItems() {
+        return baguetteItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setBaguetteItems(List<BaguetteItem> baguetteItems) {
+        this.baguetteItems = baguetteItems;
     }
 
     public String getNote() {
@@ -110,7 +111,7 @@ public class BaguetteOrder {
                 ", date=" + date +
                 ", state=" + state +
                 ", note='" + note + '\'' +
-                ", items=" + items +
+                ", baguetteItems=" + baguetteItems +
                 '}';
     }
 }
