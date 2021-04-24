@@ -1,5 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.Item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
@@ -17,6 +18,7 @@ public class Item {
     private int amount;
     private double price;
     private String name;
+    @JsonIgnore
     @ManyToOne
     private BaguetteItem baguetteItem;
     @ManyToOne

@@ -23,7 +23,7 @@ public class BaguetteOrder {
     private Date date;
     private int state;
     private String note;
-   // @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "baguetteOrder")
     private List<BaguetteItem> baguetteItems;
 
