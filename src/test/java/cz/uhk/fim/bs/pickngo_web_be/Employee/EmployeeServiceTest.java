@@ -2,25 +2,19 @@ package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
 import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
 import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRoleRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
@@ -169,6 +163,9 @@ class EmployeeServiceTest {
     @Test
     void canUpdateEmployee() {
 
+        Long roleId = 42L;
+        EmployeeRole employeeRole = new EmployeeRole(roleId, "role");
+
         Employee employee = new Employee(
                 1L,
                 "jmeno",
@@ -185,13 +182,17 @@ class EmployeeServiceTest {
                 "pw2"
         );
         given(employeeRepository.findById(employee.getId())).willReturn(Optional.of(employee));
+        given(employeeRoleRepository.findById(roleId)).willReturn(Optional.of(employeeRole));
         //when
-        underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword());
+        underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId);
 
     }
 
     @Test
     void willThrowWhenByIdDoesntExistInUpdateEmployee() {
+
+        Long roleId = 42L;
+        EmployeeRole employeeRole = new EmployeeRole(roleId, "role");
 
         Employee employee = new Employee(
                 1L,
@@ -209,8 +210,9 @@ class EmployeeServiceTest {
                 "pw2"
         );
 
+
         given(employeeRepository.findById(employee.getId())).willReturn(Optional.empty());
-        assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword()))
+        assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("employee with id " + employee.getId() + " doesnt exist");
 
         verify(employeeRepository, never()).save(any());
@@ -218,6 +220,9 @@ class EmployeeServiceTest {
     }
     @Test
     void willThrowWhenLoginDoesntExistInUpdateEmployee() {
+
+        Long roleId = 42L;
+        EmployeeRole employeeRole = new EmployeeRole(roleId, "role");
 
         Employee employee = new Employee(
                 1L,
@@ -242,8 +247,47 @@ class EmployeeServiceTest {
                 "login3",
                 "pw3"
         );
-        assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword()))
+
+        assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("login taken");
+
+        verify(employeeRepository, never()).save(any());
+
+    }
+
+    @Test
+    void willThrowWhenRoleDoesntExistInUpdateEmployee() {
+
+        Long roleId = 42L;
+        EmployeeRole employeeRole = new EmployeeRole(roleId, "role");
+
+        Employee employee = new Employee(
+                1L,
+                "jmeno",
+                "prijmeni",
+                "login",
+                "pw"
+        );
+
+        Employee employee2 = new Employee(
+                1L,
+                "jmeno2",
+                "prijmeni2",
+                "login3",
+                "pw2"
+        );
+
+        Employee employee3 = new Employee(
+                2L,
+                "jmeno3",
+                "prijmeni3",
+                "login3",
+                "pw3"
+        );
+
+       // given(employeeRoleRepository.findById(employeeRole.getId())).willReturn(Optional.empty());
+        assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), employeeRole.getId()))
+                .isInstanceOf(ResponseStatusException.class).withFailMessage("role with id "+ roleId + " doesnt exists");
 
         verify(employeeRepository, never()).save(any());
 
