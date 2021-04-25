@@ -171,7 +171,8 @@ class EmployeeServiceTest {
                 "jmeno",
                 "prijmeni",
                 "login",
-                "pw"
+                "pw",
+                employeeRole
         );
 
         Employee employee2 = new Employee(
@@ -179,12 +180,14 @@ class EmployeeServiceTest {
                 "jmeno2",
                 "prijmeni2",
                 "login2",
-                "pw2"
+                "pw2",
+                employeeRole
         );
         given(employeeRepository.findById(employee.getId())).willReturn(Optional.of(employee));
-        given(employeeRoleRepository.findById(roleId)).willReturn(Optional.of(employeeRole));
+
         //when
         underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId);
+       // given(employeeRoleRepository.findById(roleId)).willReturn(Optional.of(employeeRole));
 
     }
 
