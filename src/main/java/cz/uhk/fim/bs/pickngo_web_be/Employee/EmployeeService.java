@@ -62,30 +62,34 @@ public class EmployeeService {
 
     public void deleteEmployee(Long employeeId) {
         boolean exists = employeeRepository.existsById(employeeId);
-        if(!exists){
+        if (!exists) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "employee with id "+ employeeId + " doesnt exist");
+                    HttpStatus.BAD_REQUEST, "employee with id " + employeeId + " doesnt exist");
         }
         employeeRepository.deleteById(employeeId);
     }
+
     @Transactional
-    public void updateEmployee(Long  employeeId, String firstname, String lastname, String login, String password){
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(()-> new IllegalStateException("employee with id "+ employeeId+ "doesnt exist"));
-        if (firstname !=null && firstname.length() > 0 && !Objects.equals(employee.getFirstname(), firstname)){
+    public void updateEmployee(Long employeeId, String firstname, String lastname, String login, String password) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
+                new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "employee with id " + employeeId + "doesnt exist"));
+        if (firstname != null && firstname.length() > 0 && !Objects.equals(employee.getFirstname(), firstname)) {
             employee.setFirstname(firstname);
         }
 
-        if (lastname !=null && lastname.length() > 0 && !Objects.equals(employee.getLastname(), lastname)){
+        if (lastname != null && lastname.length() > 0 && !Objects.equals(employee.getLastname(), lastname)) {
             employee.setLastname(lastname);
         }
 
-        if (password !=null && password.length() > 0 && !Objects.equals(employee.getPassword(), password)){
-            employee.setPassword(password);
+        if (password != null && password.length() > 0 && !Objects.equals(employee.getPassword(), password)) {
+            String passwordEnc = passwordEncoder.encode(password);
+            employee.setPassword(passwordEnc);
         }
 
-        if (login !=null && login.length() > 0 && !Objects.equals(employee.getLogin(), login)){
+        if (login != null && login.length() > 0 && !Objects.equals(employee.getLogin(), login)) {
             Optional<Employee> employeeOptional = employeeRepository.findEmployeeByLogin(login);
-            if (employeeOptional.isPresent()){
+            if (employeeOptional.isPresent()) {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "login taken");
             }
@@ -94,6 +98,7 @@ public class EmployeeService {
         }
     }
 
-    public Optional<Employee> getEmployee(Long employeeId) { return employeeRepository.findById(employeeId);
+    public Optional<Employee> getEmployee(Long employeeId) {
+        return employeeRepository.findById(employeeId);
     }
 }
