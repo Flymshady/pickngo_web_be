@@ -61,7 +61,8 @@ public class EmployeeController {
             @RequestParam(required = false) String firstname,
             @RequestParam(required = false) String lastname,
             @RequestParam(required = false) String login,
-            @RequestParam(required = false) String password) {
-        employeeService.updateEmployee(employeeId, firstname, lastname, login, password);
+            @RequestParam(required = false) String password,
+            @RequestParam(required = false) Long roleId) {
+        employeeService.updateEmployee(employeeId, firstname, lastname, login, password, roleId);
     }
 }
