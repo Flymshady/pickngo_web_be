@@ -1,5 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.BaguetteItem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
 
@@ -13,6 +14,7 @@ public class BaguetteItem {
     @SequenceGenerator(name="baguette_item_sequence", sequenceName = "baguette_item_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "baguette_item_sequence")
     private Long id;
+    @JsonIgnore
     @ManyToOne
     private BaguetteOrder baguetteOrder;
     private double price;
