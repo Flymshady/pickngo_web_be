@@ -28,7 +28,7 @@ public class BaguetteOrderController {
 
 
     @RequestMapping(value = "/allByCustomer/{customerId}", method = RequestMethod.GET)
-    public List<Optional<BaguetteOrder>> getBaguetteOrdersByCustomer(@PathVariable("customerId") Long customerId) {
+    public Optional<List<BaguetteOrder>> getBaguetteOrdersByCustomer(@PathVariable("customerId") Long customerId) {
         return baguetteOrderService.getBaguetteOrdersByCustomer(customerId);
     }
 
@@ -43,5 +43,10 @@ public class BaguetteOrderController {
     public BaguetteOrder getBaguetteOrder(@PathVariable("baguetteOrderId") Long baguetteOrderId){
 
         return baguetteOrderService.getBaguetteOrderById(baguetteOrderId);
+    }
+
+    @RequestMapping(value = "/allByState/{state}", method = RequestMethod.GET)
+    public Optional<List<BaguetteOrder>> getBaguetteOrdersByState(@PathVariable("state") int state) {
+        return baguetteOrderService.getBaguetteOrdersByState(state);
     }
 }

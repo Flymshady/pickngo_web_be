@@ -1,7 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
 
-import cz.uhk.fim.bs.pickngo_web_be.Item.ItemRepository;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class BaguetteOrderService {
         return baguetteOrderRepository.findAll();
     }
 
-    public List<Optional<BaguetteOrder>> getBaguetteOrdersByCustomer(Long customerId) {
+    public Optional<List<BaguetteOrder>> getBaguetteOrdersByCustomer(Long customerId) {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if(!customerOptional.isPresent()){
             throw new ResponseStatusException(
@@ -59,5 +58,9 @@ public class BaguetteOrderService {
             baguetteOrder.setState(state);
             baguetteOrderRepository.save(baguetteOrder);
         }
+    }
+
+    public Optional<List<BaguetteOrder>> getBaguetteOrdersByState(int state) {
+        return baguetteOrderRepository.findAllByState(state);
     }
 }

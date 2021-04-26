@@ -45,9 +45,8 @@ public class IngredientTypeService {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient type with id"+ ingredientTypeId + " doesnt exist");
         }
-        Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(ingredientTypeId);
-        Optional<List<Ingredient>> ingredients = ingredientRepository.findAllByIngredientType(ingredientType);
-        if(ingredients.isPresent()) {
+        IngredientType ingredientType = ingredientTypeRepository.getOne(ingredientTypeId);
+        if(ingredientRepository.existsByIngredientType(ingredientType)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient type is used for ingredients");
         }

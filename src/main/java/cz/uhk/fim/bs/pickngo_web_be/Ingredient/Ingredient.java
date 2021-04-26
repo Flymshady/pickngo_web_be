@@ -35,6 +35,12 @@ public class Ingredient {
         this.price = price;
         this.ingredientType = ingredientType;
     }
+    public Ingredient(Long id,String name, double price, IngredientType ingredientType) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.ingredientType = ingredientType;
+    }
 
     public Ingredient(){
 

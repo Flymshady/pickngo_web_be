@@ -26,37 +26,8 @@ public class CustomerService {
     }
 
 
-    public void addNewUser(Customer customer) {
-        Optional<Customer> userOptional = customerRepository.findUserByEmail(customer.getEmail());
-        if (userOptional.isPresent()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Email taken");
-        }
-        customerRepository.save(customer);
-    }
-
-    public void deleteUser(Long userId) {
-        boolean exists = customerRepository.existsById(userId);
-        if(!exists){
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "user with id "+ userId + " doesnt exist");
-        }
-        customerRepository.deleteById(userId);
-    }
-    @Transactional
-    public void updateUser(Long userId, String name, String email){
-        Customer customer = customerRepository.findById(userId).orElseThrow(()-> new IllegalStateException("customer with id "+ userId+ "doesnt exist"));
-        if (name !=null && name.length() > 0 && !Objects.equals(customer.getName(), name)){
-            customer.setName(name);
-        }
-        if (email !=null && email.length() > 0 && !Objects.equals(customer.getEmail(), email)){
-            Optional<Customer> userOptional = customerRepository.findUserByEmail(email);
-            if (userOptional.isPresent()){
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "email taken");
-            }
-            customer.setEmail(email);
-            customerRepository.save(customer);
-        }
+    public  Optional<Customer> getUser(Long userId) {
+        Optional<Customer> customer = customerRepository.findById(userId);
+        return customer;
     }
 }

@@ -183,11 +183,12 @@ class EmployeeServiceTest {
                 "pw2",
                 employeeRole
         );
-        given(employeeRepository.findById(employee.getId())).willReturn(Optional.of(employee));
-
+        given(employeeRepository.findById(employee2.getId())).willReturn(Optional.of(employee));
+        given(employeeRepository.findEmployeeByLogin(employee2.getLogin())).willReturn(Optional.empty());
+        String pwe = passwordEncoder.encode(employee2.getPassword());
         //when
-        underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId);
-       // given(employeeRoleRepository.findById(roleId)).willReturn(Optional.of(employeeRole));
+        underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), pwe, roleId);
+      //  verify(employeeRepository).save(employee2);
 
     }
 
@@ -222,7 +223,7 @@ class EmployeeServiceTest {
 
     }
     @Test
-    void willThrowWhenLoginDoesntExistInUpdateEmployee() {
+    void willThrowWhenLoginExistsInUpdateEmployee() {
 
         Long roleId = 42L;
         EmployeeRole employeeRole = new EmployeeRole(roleId, "role");

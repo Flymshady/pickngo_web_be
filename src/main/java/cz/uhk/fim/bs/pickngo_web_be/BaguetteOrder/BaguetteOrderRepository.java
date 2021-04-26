@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BaguetteOrderRepository extends JpaRepository<BaguetteOrder, Long> {
 
-    List<Optional<BaguetteOrder>> findAllByCustomer(Optional<Customer> customer);
+    Optional<List<BaguetteOrder>> findAllByCustomer(Optional<Customer> customer);
+    Optional<List<BaguetteOrder>> findAllByState(int state);
 }

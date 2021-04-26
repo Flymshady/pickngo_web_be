@@ -2,6 +2,7 @@ package cz.uhk.fim.bs.pickngo_web_be.Ingredient;
 
 import cz.uhk.fim.bs.pickngo_web_be.IngredientType.IngredientType;
 import cz.uhk.fim.bs.pickngo_web_be.IngredientType.IngredientTypeRepository;
+import cz.uhk.fim.bs.pickngo_web_be.Item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
     private final IngredientTypeRepository ingredientTypeRepository;
+    private final ItemRepository itemRepository;
 
     @Autowired
-    public IngredientService(IngredientRepository ingredientRepository, IngredientTypeRepository ingredientTypeRepository) {
+    public IngredientService(IngredientRepository ingredientRepository, IngredientTypeRepository ingredientTypeRepository, ItemRepository itemRepository) {
         this.ingredientRepository = ingredientRepository;
         this.ingredientTypeRepository = ingredientTypeRepository;
+        this.itemRepository = itemRepository;
     }
 
 
@@ -46,12 +49,20 @@ public class IngredientService {
                     HttpStatus.BAD_REQUEST, "ingredient with id "+ ingredientId+ "doesnt exist");
 
         }
+        Ingredient ingredient = ingredientRepository.getOne(ingredientId);
+        boolean used = itemRepository.existsByIngredient(ingredient);
+        if(used){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient is used");
+        }
 
         ingredientRepository.deleteById(ingredientId);
     }
     @Transactional
     public void updateIngredient(Long  ingredientId, String name, double price, Long ingredientTypeId){
-        Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(()-> new IllegalStateException("ingredient with id "+ ingredientId+ "doesnt exist"));
+        Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(()->
+                new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "ingredient with id "+ ingredientId+ "doesnt exist"));
         if (name !=null && name.length() > 0 && !Objects.equals(ingredient.getName(), name)){
             Optional<Ingredient> ingredientOptional = ingredientRepository.findIngredientByName(name);
             if (ingredientOptional.isPresent()){

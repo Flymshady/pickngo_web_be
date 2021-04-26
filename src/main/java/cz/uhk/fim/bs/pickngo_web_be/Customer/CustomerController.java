@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -23,22 +24,10 @@ public class CustomerController {
         return customerService.getUsers();
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public void registerNewUser(@RequestBody Customer customer){
-        customerService.addNewUser(customer);
+    @RequestMapping(value = "/detail/{userId}", method = RequestMethod.GET)
+    public Optional<Customer> getUser(@PathVariable("userId") Long userId) {
+        return customerService.getUser(userId);
     }
 
-    @RequestMapping(value = "/remove/{userId}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("userId") Long userId){
-        customerService.deleteUser(userId);
-    }
-
-    @RequestMapping(value = "/update/{userId}", method = RequestMethod.PUT)
-    public void updateUser(
-            @PathVariable("userId") Long userId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email) {
-        customerService.updateUser(userId, name, email);
-    }
 
 }

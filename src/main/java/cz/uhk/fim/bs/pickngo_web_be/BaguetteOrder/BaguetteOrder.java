@@ -44,6 +44,15 @@ public class BaguetteOrder {
         this.note = note;
     }
 
+    public BaguetteOrder(Long id, Customer customer, double price, Date date, int state, String note) {
+        this.id = id;
+        this.customer = customer;
+        this.price = price;
+        this.date = date;
+        this.state = state;
+        this.note = note;
+    }
+
     public BaguetteOrder(){}
 
     public Long getId() {
