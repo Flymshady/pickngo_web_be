@@ -30,13 +30,8 @@ public class BaguetteOrderService {
     }
 
     public Optional<List<BaguetteOrder>> getBaguetteOrdersByCustomer(Long customerId) {
-        Optional<Customer> customerOptional = customerRepository.findById(customerId);
-        if(!customerOptional.isPresent()){
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "customer with id "+ customerId + " doesnt exist");
 
-        }
-        return baguetteOrderRepository.findAllByCustomer(customerOptional);
+        return baguetteOrderRepository.findAllByCustomer_Id(customerId);
     }
 
     public BaguetteOrder getBaguetteOrderById(Long baguetteOrderId) {

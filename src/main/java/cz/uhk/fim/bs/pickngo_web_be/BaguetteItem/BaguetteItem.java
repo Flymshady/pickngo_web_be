@@ -37,6 +37,12 @@ public class BaguetteItem {
         this.price = price;
     }
 
+    public BaguetteItem(Long id, BaguetteOrder baguetteOrder, double price) {
+        this.id = id;
+        this.baguetteOrder = baguetteOrder;
+        this.price = price;
+    }
+
     public BaguetteItem(){
 
     }

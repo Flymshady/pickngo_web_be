@@ -38,7 +38,7 @@ class BaguetteOrderRepositoryTest {
 
         underTest.save(baguetteOrder);
         //
-        Optional<List<BaguetteOrder>> list = underTest.findAllByCustomer(Optional.of(customer));
+        Optional<List<BaguetteOrder>> list = underTest.findAllByCustomer_Id(customer.getId());
 
         //then
         assertThat(list).isPresent();
