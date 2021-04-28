@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
+import cz.uhk.fim.bs.pickngo_web_be.SpecialOffer.SpecialOffer;
 
 import javax.persistence.*;
 
@@ -21,6 +22,8 @@ public class Item {
     @JsonIgnore
     @ManyToOne
     private BaguetteItem baguetteItem;
+    @ManyToOne
+    private SpecialOffer specialOffer;
     @ManyToOne
     private Ingredient ingredient;
 
@@ -41,6 +44,31 @@ public class Item {
         this.name = name;
         this.baguetteItem = baguetteItem;
         this.ingredient = ingredient;
+    }
+
+    public Item(int amount, double price, String name, BaguetteItem baguetteItem, SpecialOffer specialOffer, Ingredient ingredient) {
+        this.amount = amount;
+        this.price = price;
+        this.name = name;
+        this.baguetteItem = baguetteItem;
+        this.specialOffer = specialOffer;
+        this.ingredient = ingredient;
+    }
+
+    public Item(int amount, double price, String name, SpecialOffer specialOffer, Ingredient ingredient) {
+        this.amount = amount;
+        this.price = price;
+        this.name = name;
+        this.specialOffer = specialOffer;
+        this.ingredient = ingredient;
+    }
+
+    public SpecialOffer getSpecialOffer() {
+        return specialOffer;
+    }
+
+    public void setSpecialOffer(SpecialOffer specialOffer) {
+        this.specialOffer = specialOffer;
     }
 
     public Item(){}
@@ -101,6 +129,7 @@ public class Item {
                 ", price=" + price +
                 ", name='" + name + '\'' +
                 ", baguetteItem=" + baguetteItem +
+                ", specialOffer=" + specialOffer +
                 ", ingredient=" + ingredient +
                 '}';
     }
