@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Optional<List<Item>> findAllByBaguetteItem_Id(Long baguetteItemId);
+    Optional<List<Item>> findAllBySpecialOffer_Id(Long specialOfferId);
     boolean existsByIngredient(Ingredient ingredient);
 }

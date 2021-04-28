@@ -34,44 +34,44 @@ public class SpecialOfferService {
     }
 
     public void updateSpecialOffer(Long specialOfferId, String name, double price, List<Item> items, boolean active) {
-        SpecialOffer specialOffer = specialOfferRepository.getOne(specialOfferId);
-        if(specialOffer == null){
+        Optional<SpecialOffer> specialOffer = specialOfferRepository.findById(specialOfferId);
+        if(!specialOffer.isPresent()){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Speciální nabídka nenalezena");
         }
-        if (name !=null && name.length() > 0 && !Objects.equals(specialOffer.getName(), name)){
-            specialOffer.setName(name);
+        if (name !=null && name.length() > 0 && !Objects.equals(specialOffer.get().getName(), name)){
+            specialOffer.get().setName(name);
         }
-        if (price > 0.0 && !Objects.equals(specialOffer.getPrice(), price)){
-            specialOffer.setPrice(price);
+        if (price > 0.0 && !Objects.equals(specialOffer.get().getPrice(), price)){
+            specialOffer.get().setPrice(price);
         }
-        if (!items.isEmpty() && !Objects.equals(specialOffer.getItems(), items)){
-            specialOffer.setItems(items);
+        if (!items.isEmpty() && !Objects.equals(specialOffer.get().getItems(), items)){
+            specialOffer.get().setItems(items);
         }
-        if (active==true && !specialOffer.isActive()){
-            specialOffer.setActive(true);
+        if (active==true && !specialOffer.get().isActive()){
+            specialOffer.get().setActive(true);
         }
-        if (active==false && specialOffer.isActive()){
-            specialOffer.setActive(false);
+        if (active==false && specialOffer.get().isActive()){
+            specialOffer.get().setActive(false);
         }
 
-        specialOfferRepository.save(specialOffer);
+        specialOfferRepository.save(specialOffer.get());
     }
 
     public void updateActivitySpecialOffer(Long specialOfferId, boolean active) {
-        SpecialOffer specialOffer = specialOfferRepository.getOne(specialOfferId);
-        if(specialOffer == null){
+        Optional<SpecialOffer> specialOffer = specialOfferRepository.findById(specialOfferId);
+        if(!specialOffer.isPresent()){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Speciální nabídka nenalezena");
         }
-        if (active==true && !specialOffer.isActive()){
-            specialOffer.setActive(true);
+        if (active==true && !specialOffer.get().isActive()){
+            specialOffer.get().setActive(true);
         }
-        if (active==false && specialOffer.isActive()){
-            specialOffer.setActive(false);
+        if (active==false && specialOffer.get().isActive()){
+            specialOffer.get().setActive(false);
         }
 
-        specialOfferRepository.save(specialOffer);
+        specialOfferRepository.save(specialOffer.get());
     }
 
     public Optional<List<SpecialOffer>> getSpecialOffersByActive(boolean active) {

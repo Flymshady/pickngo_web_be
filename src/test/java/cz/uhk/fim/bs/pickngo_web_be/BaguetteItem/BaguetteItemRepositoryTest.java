@@ -39,7 +39,7 @@ class BaguetteItemRepositoryTest {
         customerRepository.save(customer);
         BaguetteOrder baguetteOrder = new BaguetteOrder(customer, 2.0, new Date(), 0, "note");
         baguetteOrderRepository.save(baguetteOrder);
-        BaguetteItem baguetteItem = new BaguetteItem(baguetteOrder, 2.0);
+        BaguetteItem baguetteItem = new BaguetteItem(baguetteOrder, 2.0, false);
         underTest.save(baguetteItem);
         List<BaguetteItem> list = underTest.findAllByBaguetteOrder_Id(baguetteOrder.getId());
         assertThat(list).containsExactly(baguetteItem);

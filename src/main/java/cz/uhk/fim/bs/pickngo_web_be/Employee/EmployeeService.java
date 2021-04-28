@@ -96,12 +96,11 @@ public class EmployeeService {
         }
         if (roleId != null) {
             Optional<EmployeeRole> employeeRoleOptional = employeeRoleRepository.findById(roleId);
-            if (employeeRoleOptional.isPresent()){
+            if (!employeeRoleOptional.isPresent()){
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "role with id "+ roleId + " doesnt exists");
             }
-            EmployeeRole employeeRole = employeeRoleRepository.getOne(roleId);
-            employee.setEmployeeRole(employeeRole);
+            employee.setEmployeeRole(employeeRoleOptional.get());
         }
         employeeRepository.save(employee);
     }

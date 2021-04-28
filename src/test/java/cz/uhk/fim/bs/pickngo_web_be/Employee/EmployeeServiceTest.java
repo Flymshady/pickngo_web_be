@@ -185,6 +185,7 @@ class EmployeeServiceTest {
         );
         given(employeeRepository.findById(employee2.getId())).willReturn(Optional.of(employee));
         given(employeeRepository.findEmployeeByLogin(employee2.getLogin())).willReturn(Optional.empty());
+        given(employeeRoleRepository.findById(roleId)).willReturn(Optional.of(employeeRole));
         String pwe = passwordEncoder.encode(employee2.getPassword());
         //when
         underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), pwe, roleId);

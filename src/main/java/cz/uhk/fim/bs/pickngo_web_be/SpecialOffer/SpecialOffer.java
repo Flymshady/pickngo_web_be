@@ -42,6 +42,12 @@ public class SpecialOffer {
         this.active=active;
     }
 
+    public SpecialOffer(String name, double price, boolean active) {
+        this.name=name;
+        this.price = price;
+        this.active=active;
+    }
+
     public SpecialOffer(){
     }
 

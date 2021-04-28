@@ -44,7 +44,7 @@ class BaguetteItemServiceTest {
         BaguetteOrder baguetteOrder = new BaguetteOrder(55L, new Customer(),2.0, new Date(), 1, "note" );
 
         List<BaguetteItem> list = new ArrayList<>();
-        BaguetteItem baguetteItem = new BaguetteItem(58L, baguetteOrder, 2.0);
+        BaguetteItem baguetteItem = new BaguetteItem(58L, baguetteOrder, 2.0, false);
         list.add(baguetteItem);
         baguetteOrder.setBaguetteItems(list);
         given(baguetteOrderRepository.findById(baguetteOrder.getId())).willReturn(Optional.of(baguetteOrder));
@@ -56,7 +56,7 @@ class BaguetteItemServiceTest {
     @Test
     void getBaguetteItem() {
         Long id = 84L;
-        BaguetteItem baguetteItem = new BaguetteItem(id, new BaguetteOrder(), 1.0);
+        BaguetteItem baguetteItem = new BaguetteItem(id, new BaguetteOrder(), 1.0, false);
         given(baguetteItemRepository.findById(id)).willReturn(Optional.of(baguetteItem));
         underTest.getBaguetteItem(id);
         verify(baguetteItemRepository).findById(id);

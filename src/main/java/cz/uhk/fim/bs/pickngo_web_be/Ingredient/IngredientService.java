@@ -49,8 +49,13 @@ public class IngredientService {
                     HttpStatus.BAD_REQUEST, "ingredient with id "+ ingredientId+ "doesnt exist");
 
         }
-        Ingredient ingredient = ingredientRepository.getOne(ingredientId);
-        boolean used = itemRepository.existsByIngredient(ingredient);
+        Optional<Ingredient> ingredient = ingredientRepository.findById(ingredientId);
+        if(!ingredient.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient with id "+ ingredientId+ "doesnt exist");
+
+        }
+        boolean used = itemRepository.existsByIngredient(ingredient.get());
         if(used){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient is used");

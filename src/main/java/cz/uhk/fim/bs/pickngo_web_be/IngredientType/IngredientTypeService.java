@@ -45,8 +45,12 @@ public class IngredientTypeService {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient type with id"+ ingredientTypeId + " doesnt exist");
         }
-        IngredientType ingredientType = ingredientTypeRepository.getOne(ingredientTypeId);
-        if(ingredientRepository.existsByIngredientType(ingredientType)) {
+        Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(ingredientTypeId);
+        if(!ingredientType.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient type with id"+ ingredientTypeId + " doesnt exist");
+        }
+        if(ingredientRepository.existsByIngredientType(ingredientType.get())) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient type is used for ingredients");
         }

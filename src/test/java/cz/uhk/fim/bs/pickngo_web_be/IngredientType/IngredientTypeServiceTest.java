@@ -79,6 +79,7 @@ class IngredientTypeServiceTest {
         );
 
         given(ingredientTypeRepository.existsById(ingredientType.getId())).willReturn(true);
+        given(ingredientTypeRepository.findById(ingredientType.getId())).willReturn(Optional.of(ingredientType));
         //when
         underTest.deleteIngredientType(ingredientType.getId());
         //then

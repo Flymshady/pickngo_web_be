@@ -22,6 +22,7 @@ public class Item {
     @JsonIgnore
     @ManyToOne
     private BaguetteItem baguetteItem;
+    @JsonIgnore
     @ManyToOne
     private SpecialOffer specialOffer;
     @ManyToOne
@@ -121,16 +122,4 @@ public class Item {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", name='" + name + '\'' +
-                ", baguetteItem=" + baguetteItem +
-                ", specialOffer=" + specialOffer +
-                ", ingredient=" + ingredient +
-                '}';
-    }
 }
