@@ -1,6 +1,5 @@
 package cz.uhk.fim.bs.pickngo_web_be.SpecialOffer;
 
-import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

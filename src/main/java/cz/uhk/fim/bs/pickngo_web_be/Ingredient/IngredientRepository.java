@@ -4,7 +4,6 @@ import cz.uhk.fim.bs.pickngo_web_be.IngredientType.IngredientType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 

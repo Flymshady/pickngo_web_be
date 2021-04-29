@@ -2,7 +2,6 @@ package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
-import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 
 import javax.persistence.*;

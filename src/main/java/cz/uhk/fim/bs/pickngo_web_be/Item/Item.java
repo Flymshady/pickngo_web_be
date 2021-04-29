@@ -3,7 +3,6 @@ package cz.uhk.fim.bs.pickngo_web_be.Item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
-import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 import cz.uhk.fim.bs.pickngo_web_be.SpecialOffer.SpecialOffer;
 
 import javax.persistence.*;
@@ -57,6 +56,15 @@ public class Item {
     }
 
     public Item(int amount, double price, String name, SpecialOffer specialOffer, Ingredient ingredient) {
+        this.amount = amount;
+        this.price = price;
+        this.name = name;
+        this.specialOffer = specialOffer;
+        this.ingredient = ingredient;
+    }
+
+    public Item(Long id, int amount, double price, String name, SpecialOffer specialOffer, Ingredient ingredient) {
+        this.id=id;
         this.amount = amount;
         this.price = price;
         this.name = name;

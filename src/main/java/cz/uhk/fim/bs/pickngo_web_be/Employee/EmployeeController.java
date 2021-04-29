@@ -1,13 +1,9 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
-import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
-import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRoleRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,5 @@
 package cz.uhk.fim.bs.pickngo_web_be.IngredientType;
 
-import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.IngredientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

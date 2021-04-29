@@ -2,9 +2,7 @@ package cz.uhk.fim.bs.pickngo_web_be.BaguetteItem;
 
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrderRepository;
-import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrderService;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
-import cz.uhk.fim.bs.pickngo_web_be.Customer.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -97,21 +97,20 @@ public class ItemService {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "chyba, speciální nabídka nenalezena");
         }
-        SpecialOffer specialOffer = specialOfferRepository.getOne(specialOfferId);
-        Item item = itemRepository.getOne(itemId);
-        if(item == null){
+        Optional<Item> item = itemRepository.findById(itemId);
+        if(!item.isPresent()){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "chyba, položka nenalezena");
         }
-        double price = item.getPrice() * item.getAmount();
-        int amount = item.getAmount();
-        specialOffer.getItems().remove(item);
-        itemRepository.delete(item);
-        if(specialOffer.getItems().isEmpty()){
-            specialOfferRepository.delete(specialOffer);
+        double price = item.get().getPrice() * item.get().getAmount();
+        int amount = item.get().getAmount();
+        specialOfferOptional.get().getItems().remove(item.get());
+        itemRepository.delete(item.get());
+        if(specialOfferOptional.get().getItems().isEmpty()){
+            specialOfferRepository.delete(specialOfferOptional.get());
         }else {
-            specialOffer.setPrice(specialOffer.getPrice()-amount*price+price*amount);
-            specialOfferRepository.save(specialOffer);
+            specialOfferOptional.get().setPrice(specialOfferOptional.get().getPrice()-amount*price+price*amount);
+            specialOfferRepository.save(specialOfferOptional.get());
         }
     }
 }
