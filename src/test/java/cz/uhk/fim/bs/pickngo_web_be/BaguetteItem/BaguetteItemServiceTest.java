@@ -46,7 +46,7 @@ class BaguetteItemServiceTest {
         list.add(baguetteItem);
         baguetteOrder.setBaguetteItems(list);
         given(baguetteOrderRepository.findById(baguetteOrder.getId())).willReturn(Optional.of(baguetteOrder));
-        given(baguetteItemRepository.findAllByBaguetteOrder_Id(baguetteOrder.getId())).willReturn(list);
+        given(baguetteItemRepository.findAllByBaguetteOrder_Id(baguetteOrder.getId())).willReturn(Optional.of(list));
         underTest.getBaguetteItemsByBaguetteOrder(baguetteOrder.getId());
         verify(baguetteItemRepository).findAllByBaguetteOrder_Id(baguetteOrder.getId());
     }

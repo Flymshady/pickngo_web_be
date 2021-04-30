@@ -24,8 +24,8 @@ public class EmployeeRoleService {
 
 
     public void addNewEmployeeRole(EmployeeRole employeeRole) {
-        EmployeeRole employeeRoleOptional = employeeRoleRepository.findByName(employeeRole.getName());
-        if (employeeRoleOptional != null) {
+        Optional<EmployeeRole> employeeRoleOptional = employeeRoleRepository.findByName(employeeRole.getName());
+        if (employeeRoleOptional.isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "name taken");
         }

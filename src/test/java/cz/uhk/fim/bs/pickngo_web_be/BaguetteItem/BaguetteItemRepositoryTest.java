@@ -11,9 +11,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class BaguetteItemRepositoryTest {
@@ -41,8 +41,8 @@ class BaguetteItemRepositoryTest {
         baguetteOrderRepository.save(baguetteOrder);
         BaguetteItem baguetteItem = new BaguetteItem(baguetteOrder, 2.0, false);
         underTest.save(baguetteItem);
-        List<BaguetteItem> list = underTest.findAllByBaguetteOrder_Id(baguetteOrder.getId());
-        assertThat(list).containsExactly(baguetteItem);
+        Optional<List<BaguetteItem>> list = underTest.findAllByBaguetteOrder_Id(baguetteOrder.getId());
+        assertThat(list.get()).contains(baguetteItem);
 
 
     }

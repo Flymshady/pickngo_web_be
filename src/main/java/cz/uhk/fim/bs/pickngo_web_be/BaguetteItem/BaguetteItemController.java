@@ -27,7 +27,7 @@ public class BaguetteItemController {
 
 
     @RequestMapping(value = "/allByBaguetteOrder/{baguetteOrderId}", method = RequestMethod.GET)
-    public List<BaguetteItem> getBaguetteItemsByBaguetteOrder(@PathVariable("baguetteOrderId") Long baguetteOrderId) {
+    public Optional<List<BaguetteItem>> getBaguetteItemsByBaguetteOrder(@PathVariable("baguetteOrderId") Long baguetteOrderId) {
         return baguetteItemService.getBaguetteItemsByBaguetteOrder(baguetteOrderId);
     }
 

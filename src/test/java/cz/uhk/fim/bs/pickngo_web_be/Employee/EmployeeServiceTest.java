@@ -50,7 +50,10 @@ class EmployeeServiceTest {
                 "login",
                 "pw"
         );
+        EmployeeRole employeeRole = new EmployeeRole("Employee");
+
         //when
+        given(employeeRoleRepository.findByName("Employee")).willReturn(Optional.of(employeeRole));
         underTest.addNewEmployee(employee);
         //then
         ArgumentCaptor<Employee> employeeArgumentCaptor = ArgumentCaptor.forClass(Employee.class);
@@ -91,6 +94,10 @@ class EmployeeServiceTest {
                 "login",
                 "pw"
         );
+        EmployeeRole employeeRole = new EmployeeRole("Admin");
+
+        //when
+        given(employeeRoleRepository.findByName("Admin")).willReturn(Optional.of(employeeRole));
         //when
         underTest.addNewAdmin(employee);
         //then

@@ -26,7 +26,7 @@ public class BaguetteItemService {
         return baguetteItemRepository.findAll();
     }
 
-    public List<BaguetteItem> getBaguetteItemsByBaguetteOrder(Long baguetteOrderId) {
+    public Optional<List<BaguetteItem>> getBaguetteItemsByBaguetteOrder(Long baguetteOrderId) {
         Optional<BaguetteOrder> baguetteOrderOptional = baguetteOrderRepository.findById(baguetteOrderId);
         if(!baguetteOrderOptional.isPresent()){
             throw new ResponseStatusException(

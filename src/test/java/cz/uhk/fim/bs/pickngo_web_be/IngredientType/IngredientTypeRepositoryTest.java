@@ -36,7 +36,7 @@ class IngredientTypeRepositoryTest {
 
 
     @Test
-    void itShouldNotFindEmployeeByLogin() {
+    void itShouldNotFindIngredientTypeByName() {
         //given
         String name= "nazev";
         //when

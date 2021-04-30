@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -28,8 +30,8 @@ class EmployeeRoleRepositoryTest {
 
         underTest.save(employeeRole);
         //when
-        EmployeeRole result = underTest.findByName(name);
+        Optional<EmployeeRole> result = underTest.findByName(name);
         //then
-        assertThat(result).isEqualTo(employeeRole);
+        assertThat(result.get()).isEqualTo(employeeRole);
     }
 }

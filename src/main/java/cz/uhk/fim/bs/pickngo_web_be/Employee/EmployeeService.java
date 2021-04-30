@@ -41,8 +41,8 @@ public class EmployeeService {
         }
         String password = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(password);
-        EmployeeRole employeeRole = employeeRoleRepository.findByName("Employee");
-        employee.setEmployeeRole(employeeRole);
+        Optional<EmployeeRole> employeeRole = employeeRoleRepository.findByName("Employee");
+        employee.setEmployeeRole(employeeRole.get());
         employeeRepository.save(employee);
     }
 
@@ -54,8 +54,8 @@ public class EmployeeService {
         }
         String password = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(password);
-        EmployeeRole employeeRole = employeeRoleRepository.findByName("Admin");
-        employee.setEmployeeRole(employeeRole);
+        Optional<EmployeeRole> employeeRole = employeeRoleRepository.findByName("Admin");
+        employee.setEmployeeRole(employeeRole.get());
         employeeRepository.save(employee);
     }
 

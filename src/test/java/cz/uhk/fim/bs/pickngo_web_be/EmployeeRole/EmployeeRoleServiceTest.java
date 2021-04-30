@@ -58,7 +58,7 @@ class EmployeeRoleServiceTest {
                 "nazev"
         );
 
-        given(employeeRoleRepository.findByName(employeeRole.getName())).willReturn(employeeRole);
+        given(employeeRoleRepository.findByName(employeeRole.getName())).willReturn(java.util.Optional.of(employeeRole));
         //when
 
         //then
