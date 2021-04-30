@@ -33,8 +33,8 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/create/{specialOfferId}", method = RequestMethod.POST)
-    public void addToSpecialOffer(@PathVariable("specialOfferId") Long specialOfferId, @RequestBody Item item){
-        itemService.addToSpecialOffer(specialOfferId, item);
+    public Item addToSpecialOffer(@PathVariable("specialOfferId") Long specialOfferId, @RequestBody Item item){
+        return itemService.addToSpecialOffer(specialOfferId, item);
     }
     @RequestMapping(value = "/update/{specialOfferId}/{itemId}", method = RequestMethod.PUT)
     public void updateItem(@PathVariable("itemId") Long itemId,

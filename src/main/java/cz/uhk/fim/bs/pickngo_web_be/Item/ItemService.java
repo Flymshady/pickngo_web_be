@@ -43,7 +43,7 @@ public class ItemService {
     }
 
     @Transactional
-    public void addToSpecialOffer(Long specialOfferId, Item item) {
+    public Item addToSpecialOffer(Long specialOfferId, Item item) {
         Optional<SpecialOffer> specialOfferOptional = specialOfferRepository.findById(specialOfferId);
         if (!specialOfferOptional.isPresent()){
             throw new ResponseStatusException(
@@ -65,6 +65,7 @@ public class ItemService {
         }
         specialOfferOptional.get().setPrice(specialOfferOptional.get().getPrice()+item.getPrice());
         specialOfferRepository.save(specialOfferOptional.get());
+        return itemNew;
     }
 
     @Transactional
