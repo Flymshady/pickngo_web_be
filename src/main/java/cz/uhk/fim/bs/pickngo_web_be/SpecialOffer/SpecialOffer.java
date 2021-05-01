@@ -17,6 +17,7 @@ public class SpecialOffer {
     private String name;
     @JsonIgnore
     private double price;
+    @JsonIgnore
     @OneToMany(mappedBy = "specialOffer")
     private List<Item> items;
     private boolean active;

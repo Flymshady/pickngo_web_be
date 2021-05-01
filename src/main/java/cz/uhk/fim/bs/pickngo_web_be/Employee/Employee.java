@@ -1,5 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.Employee;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.EmployeeRole.EmployeeRole;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Employee {
     private String lastname;
     private String login;
     private String password;
+    @JsonIgnore
     @ManyToOne
     private EmployeeRole employeeRole;
 
