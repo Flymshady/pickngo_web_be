@@ -24,7 +24,6 @@ public class Item {
     @JsonIgnore
     @ManyToOne
     private SpecialOffer specialOffer;
-    @JsonIgnore
     @ManyToOne
     private Ingredient ingredient;
 
