@@ -17,7 +17,7 @@ public class Employee {
     private String lastname;
     private String login;
     private String password;
-    @JsonIgnore
+
     @ManyToOne
     private EmployeeRole employeeRole;
 

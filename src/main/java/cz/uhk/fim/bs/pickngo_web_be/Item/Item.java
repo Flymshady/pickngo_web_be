@@ -18,10 +18,13 @@ public class Item {
     private int amount;
     private double price;
     private String name;
+    @JsonIgnore
     @ManyToOne
     private BaguetteItem baguetteItem;
+    @JsonIgnore
     @ManyToOne
     private SpecialOffer specialOffer;
+    @JsonIgnore
     @ManyToOne
     private Ingredient ingredient;
 
