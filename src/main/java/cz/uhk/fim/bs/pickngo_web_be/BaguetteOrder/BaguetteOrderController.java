@@ -33,7 +33,7 @@ public class BaguetteOrderController {
     }
 
     @RequestMapping(value = "/update/{baguetteOrderId}", method = RequestMethod.PUT)
-    public void updateCustomer(
+    public void updateBaguetteOrder(
             @PathVariable("baguetteOrderId") Long baguetteOrderId,
             @RequestParam(required = false) int state) {
         baguetteOrderService.updateBaguetteOrder(baguetteOrderId, state);

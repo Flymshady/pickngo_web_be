@@ -45,7 +45,7 @@ public class IngredientController {
 
 
     @RequestMapping(value = "/update/{ingredientId}", method = RequestMethod.PUT)
-    public void updateUser(
+    public void updateIngredient(
             @PathVariable("ingredientId") Long ingredientId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) double price,
