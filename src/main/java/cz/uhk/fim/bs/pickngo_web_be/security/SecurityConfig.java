@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**","/employee/**", "/baguetteOrder/**", "/baguetteItem/**", "/ingredient/**", "/item/**", "/specialOrder/**").authenticated()
 
-                .antMatchers("/employee/admin/create/**").hasRole("Admin")
+                .antMatchers("/employee/admin/create/**").hasAuthority("ROLE_Admin")
                 .antMatchers("/employee/all","/employee/create/**","/employee/remove/**", "/employee/update/**" ).hasAuthority("ROLE_Admin")
                 .antMatchers("/role/all", "/role/detail/**", "/role/create", "/role/update/**", "/role/remove/**").hasAuthority("ROLE_Admin")
                 .antMatchers("/ingredient/create", "/ingredient/update/**", "/ingredient/remove/**").hasAuthority("ROLE_Admin")
