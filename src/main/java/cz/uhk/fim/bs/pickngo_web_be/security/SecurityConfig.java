@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**","/employee/**", "/baguetteOrder/**", "/baguetteItem/**", "/ingredient/**", "/item/**", "/specialOrder/**").authenticated()
 
                 .antMatchers("/employee/admin/create/**").hasRole("Admin")
-                .antMatchers("/employee/all","/employee/create/**","/employee/remove/**", "/employee/update/**" ).hasRole("Admin")
+                .antMatchers("/employee/all","/employee/create/**","/employee/remove/**", "/employee/update/**" ).hasAuthority("ROLE_Admin")
                 .antMatchers("/role/all", "/role/detail/**", "/role/create", "/role/update/**", "/role/remove/**").hasAuthority("ROLE_Admin")
                 .antMatchers("/ingredient/create", "/ingredient/update/**", "/ingredient/remove/**").hasAuthority("ROLE_Admin")
                 .antMatchers("/ingredientType/create", "/ingredientType/update/**", "/ingredientType/remove/**").hasAuthority("ROLE_Admin")
