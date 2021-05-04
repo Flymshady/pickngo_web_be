@@ -2,6 +2,7 @@ package cz.uhk.fim.bs.pickngo_web_be.Ingredient;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class IngredientController {
 
 
     @RequestMapping(value = "/create/{ingredientTypeId}", method = RequestMethod.POST)
-    public void createNewIngredient(@PathVariable("ingredientTypeId") Long ingredientTypeId, @RequestBody Ingredient ingredient){
+    public void createNewIngredient(@NonNull @PathVariable("ingredientTypeId") Long ingredientTypeId, @RequestBody Ingredient ingredient){
         ingredientService.addNewIngredient(ingredient, ingredientTypeId);
     }
 
