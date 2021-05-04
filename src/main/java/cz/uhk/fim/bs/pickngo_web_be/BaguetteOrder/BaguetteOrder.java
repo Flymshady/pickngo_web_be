@@ -1,6 +1,5 @@
 package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 
@@ -22,7 +21,7 @@ public class BaguetteOrder {
     private Date date;
     private int state;
     private String note;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "baguetteOrder")
     private List<BaguetteItem> baguetteItems;
 
