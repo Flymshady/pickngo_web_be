@@ -34,6 +34,7 @@ public class IngredientService {
     }
 
 
+    @Transactional
     public void addNewIngredient(Ingredient ingredient, Long ingredientTypeId) {
         Optional<IngredientType> ingredientTypeOptional = ingredientTypeRepository.findById(ingredientTypeId);
         if (!ingredientTypeOptional.isPresent()) {
@@ -58,6 +59,7 @@ public class IngredientService {
         ingredientRepository.save(ingredient);
     }
 
+    @Transactional
     public void deleteIngredient(Long ingredientId) {
         boolean exists = ingredientRepository.existsById(ingredientId);
         if(!exists){
@@ -76,7 +78,15 @@ public class IngredientService {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "ingredient is used");
         }
-
+        Optional<IngredientType> ingredientTypeOptional = ingredientTypeRepository.findById(ingredient.get().getIngredientType().getId());
+        if (!ingredientTypeOptional.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient type could not be found");
+        }
+        if(ingredientTypeOptional.get().getIngredients()!=null) {
+            ingredientTypeOptional.get().getIngredients().remove(ingredient);
+            ingredientTypeRepository.save(ingredientTypeOptional.get());
+        }
         ingredientRepository.deleteById(ingredientId);
     }
     @Transactional

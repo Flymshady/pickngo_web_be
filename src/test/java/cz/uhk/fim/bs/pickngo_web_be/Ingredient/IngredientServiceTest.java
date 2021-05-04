@@ -96,14 +96,16 @@ class IngredientServiceTest {
     @Test
     void deleteIngredient() {
         //given
+        IngredientType ingredientType = new IngredientType(1L,"name");
         Ingredient ingredient = new Ingredient(
                 "name",
                 2.0,
-                new IngredientType()
+               ingredientType
         );
 
         given(ingredientRepository.existsById(ingredient.getId())).willReturn(true);
         given(ingredientRepository.findById(ingredient.getId())).willReturn(Optional.of(ingredient));
+        given(ingredientTypeRepository.findById(ingredient.getIngredientType().getId())).willReturn(Optional.of(ingredientType));
         //when
         underTest.deleteIngredient(ingredient.getId());
         //then
@@ -126,6 +128,7 @@ class IngredientServiceTest {
         verify(ingredientRepository, never()).delete(any());
 
     }
+
     @Test
     void WillThrowWhenUsedInDeleteIngredient() {
         //given
@@ -134,9 +137,33 @@ class IngredientServiceTest {
                 2.0,
                 new IngredientType()
         );
+        given(ingredientRepository.existsById(ingredient.getId())).willReturn(true);
+        given(ingredientRepository.findById(ingredient.getId())).willReturn(Optional.of(ingredient));
+        given(itemRepository.existsByIngredient(ingredient)).willReturn(true);
+
         //when
         assertThatThrownBy(() ->underTest.deleteIngredient(ingredient.getId()))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("ingredient is used");
+
+        verify(ingredientTypeRepository, never()).delete(any());
+
+    }
+    @Test
+    void WillThrowWhenTypeNotFoundInDeleteIngredient() {
+        IngredientType ingredientType = new IngredientType(1L,"name");
+        Ingredient ingredient = new Ingredient(
+                "name",
+                2.0,
+                ingredientType
+        );
+        given(ingredientRepository.existsById(ingredient.getId())).willReturn(true);
+        given(ingredientRepository.findById(ingredient.getId())).willReturn(Optional.of(ingredient));
+        given(itemRepository.existsByIngredient(ingredient)).willReturn(false);
+        given(ingredientTypeRepository.findById(ingredientType.getId())).willReturn(Optional.empty());
+
+        //when
+        assertThatThrownBy(() ->underTest.deleteIngredient(ingredient.getId()))
+                .isInstanceOf(ResponseStatusException.class).withFailMessage("ingredient type could not be found");
 
         verify(ingredientTypeRepository, never()).delete(any());
 
