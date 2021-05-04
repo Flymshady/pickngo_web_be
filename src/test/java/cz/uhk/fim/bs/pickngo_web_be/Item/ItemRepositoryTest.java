@@ -4,7 +4,6 @@ import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItem;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteItem.BaguetteItemRepository;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrderRepository;
-import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrderService;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.Customer;
 import cz.uhk.fim.bs.pickngo_web_be.Customer.CustomerRepository;
 import cz.uhk.fim.bs.pickngo_web_be.Ingredient.Ingredient;
@@ -22,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class ItemRepositoryTest {
@@ -73,7 +71,7 @@ class ItemRepositoryTest {
 
 
     @Test
-    @Disabled
+    @Disabled //funkci ale bug failure pri deployi
     void existByIngredient(){
         BaguetteItem baguetteItem = new BaguetteItem();
         baguetteItem.setId(1L);

@@ -114,7 +114,6 @@ class IngredientServiceTest {
                 2.0,
                 new IngredientType()
         );
-      //  given(itemRepository.existsByIngredient(ingredient)).willReturn(true);
         //when
         assertThatThrownBy(() ->underTest.deleteIngredient(ingredient.getId()))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("ingredient is used");

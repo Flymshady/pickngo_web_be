@@ -43,7 +43,5 @@ class BaguetteItemRepositoryTest {
         underTest.save(baguetteItem);
         Optional<List<BaguetteItem>> list = underTest.findAllByBaguetteOrder_Id(baguetteOrder.getId());
         assertThat(list.get()).contains(baguetteItem);
-
-
     }
 }

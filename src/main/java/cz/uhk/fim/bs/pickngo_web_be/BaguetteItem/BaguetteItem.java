@@ -3,7 +3,6 @@ package cz.uhk.fim.bs.pickngo_web_be.BaguetteItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder.BaguetteOrder;
 import cz.uhk.fim.bs.pickngo_web_be.Item.Item;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class BaguetteItem {
     }
 
     public BaguetteItem(){
-
     }
 
     public Long getId() {

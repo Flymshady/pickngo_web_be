@@ -40,7 +40,6 @@ class BaguetteItemServiceTest {
     @Test
     void getBaguetteItemsByBaguetteOrder() {
         BaguetteOrder baguetteOrder = new BaguetteOrder(55L, new Customer(),2.0, new Date(), 1, "note" );
-
         List<BaguetteItem> list = new ArrayList<>();
         BaguetteItem baguetteItem = new BaguetteItem(58L, baguetteOrder, 2.0, false);
         list.add(baguetteItem);

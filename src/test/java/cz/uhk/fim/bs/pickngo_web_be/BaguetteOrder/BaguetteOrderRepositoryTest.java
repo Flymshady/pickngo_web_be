@@ -36,10 +36,9 @@ class BaguetteOrderRepositoryTest {
         BaguetteOrder baguetteOrder = new BaguetteOrder(customer, 1.0, new Date(),0, "note");
 
         underTest.save(baguetteOrder);
-        //
+
         Optional<List<BaguetteOrder>> list = underTest.findAllByCustomer_Id(customer.getId());
 
-        //then
         assertThat(list).isPresent();
     }
 
@@ -50,10 +49,9 @@ class BaguetteOrderRepositoryTest {
         BaguetteOrder baguetteOrder = new BaguetteOrder(customer, 1.0, new Date(),0, "note");
 
         underTest.save(baguetteOrder);
-        //
+
         Optional<List<BaguetteOrder>> list = underTest.findAllByState(baguetteOrder.getState());
 
-        //then
         assertThat(list).isPresent();
     }
 }

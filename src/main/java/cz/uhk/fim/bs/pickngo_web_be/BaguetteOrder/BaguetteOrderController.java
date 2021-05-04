@@ -1,8 +1,6 @@
 package cz.uhk.fim.bs.pickngo_web_be.BaguetteOrder;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +17,6 @@ public class BaguetteOrderController {
     public BaguetteOrderController(BaguetteOrderService baguetteOrderService) {
         this.baguetteOrderService = baguetteOrderService;
     }
-
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<BaguetteOrder> getBaguetteOrders() {

@@ -46,8 +46,6 @@ public class Ingredient {
 
     }
 
-
-
     public Long getId() {
         return id;
     }

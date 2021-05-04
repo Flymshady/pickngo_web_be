@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path="/")
 public class HomeController {
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHello(){
         return "hello there";

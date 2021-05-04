@@ -37,7 +37,6 @@ class EmployeeRepositoryTest {
         assertThat(optionalEmployee).isPresent();
     }
 
-
     @Test
     void itShouldNotFindEmployeeByLogin() {
         //given

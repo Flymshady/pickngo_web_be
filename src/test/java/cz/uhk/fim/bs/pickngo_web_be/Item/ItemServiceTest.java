@@ -174,7 +174,7 @@ class ItemServiceTest {
         Long id = 84L;
         Item item = new Item(id, 5, 2.0, "name", specialOffer, ingredient);
         given(specialOfferRepository.findById(specialOffer.getId())).willReturn(Optional.empty());
-    //    given(itemRepository.findById(id)).willReturn(Optional.of(item));
+
         assertThatThrownBy(() ->underTest.removeItem(specialOffer.getId(), item.getId()))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("chyba, speciální nabídka nenalezena");
 

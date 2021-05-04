@@ -75,9 +75,6 @@ class EmployeeServiceTest {
 
         given(employeeRepository.findEmployeeByLogin(employee.getLogin())).willReturn(Optional.of(employee));
 
-        //when
-
-        //then
         assertThatThrownBy(() ->underTest.addNewEmployee(employee))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("Uživatelské jméno je již obsazeno");
 
@@ -120,9 +117,6 @@ class EmployeeServiceTest {
 
         given(employeeRepository.findEmployeeByLogin(employee.getLogin())).willReturn(Optional.of(employee));
 
-        //when
-
-        //then
         assertThatThrownBy(() ->underTest.addNewAdmin(employee))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("Uživatelské jméno je již obsazeno");
 
@@ -196,7 +190,6 @@ class EmployeeServiceTest {
         String pwe = passwordEncoder.encode(employee2.getPassword());
         //when
         underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), pwe, roleId);
-      //  verify(employeeRepository).save(employee2);
 
     }
 
@@ -221,7 +214,6 @@ class EmployeeServiceTest {
                 "login2",
                 "pw2"
         );
-
 
         given(employeeRepository.findById(employee.getId())).willReturn(Optional.empty());
         assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), roleId))
@@ -297,7 +289,6 @@ class EmployeeServiceTest {
                 "pw3"
         );
 
-       // given(employeeRoleRepository.findById(employeeRole.getId())).willReturn(Optional.empty());
         assertThatThrownBy(() ->underTest.updateEmployee(employee2.getId(), employee2.getFirstname(), employee2.getLastname(),employee2.getLogin(), employee2.getPassword(), employeeRole.getId()))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("role with id "+ roleId + " doesnt exists");
 

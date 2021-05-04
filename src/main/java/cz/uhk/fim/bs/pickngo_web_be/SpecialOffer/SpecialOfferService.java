@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,6 +34,7 @@ public class SpecialOfferService {
         return specialOffer;
     }
 
+    @Transactional
     public void updateSpecialOffer(Long specialOfferId, String name, double price, List<Item> items, boolean active) {
         Optional<SpecialOffer> specialOffer = specialOfferRepository.findById(specialOfferId);
         if(!specialOffer.isPresent()){
@@ -58,6 +60,7 @@ public class SpecialOfferService {
         specialOfferRepository.save(specialOffer.get());
     }
 
+    @Transactional
     public void updateActivitySpecialOffer(Long specialOfferId, boolean active) {
         Optional<SpecialOffer> specialOffer = specialOfferRepository.findById(specialOfferId);
         if(!specialOffer.isPresent()){

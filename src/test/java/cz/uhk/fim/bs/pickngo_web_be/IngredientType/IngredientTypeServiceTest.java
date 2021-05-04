@@ -130,9 +130,6 @@ class IngredientTypeServiceTest {
         given(ingredientTypeRepository.findById(ingredientType1.getId())).willReturn(Optional.of(ingredientType1));
         given(ingredientTypeRepository.findIngredientTypeByName(ingredientType2.getName())).willReturn(Optional.empty());
         underTest.updateIngredientType(ingredientType2.getId(), ingredientType2.getName());
-
-
-//        verify(ingredientTypeRepository).save(ingredientType2);
     }
     @Test
     void willThrowWhenByIdDoesntExistInUpdateIngredientType() {

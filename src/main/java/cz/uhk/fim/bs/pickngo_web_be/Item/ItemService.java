@@ -92,6 +92,7 @@ public class ItemService {
 
     }
 
+    @Transactional
     public void removeItem(Long specialOfferId, Long itemId) {
         Optional<SpecialOffer> specialOfferOptional = specialOfferRepository.findById(specialOfferId);
         if (!specialOfferOptional.isPresent()){

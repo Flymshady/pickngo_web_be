@@ -21,7 +21,6 @@ class CustomerServiceTest {
 
     @Test
     void getUsers() {
-
         //when
         underTest.getUsers();
         //then
@@ -30,10 +29,8 @@ class CustomerServiceTest {
 
     @Test
     void getUser() {
-
         Long id = 1L;
-
-        //when
+        //then
         underTest.getUser(id);
         //then
         verify(customerRepository).findById(id);
