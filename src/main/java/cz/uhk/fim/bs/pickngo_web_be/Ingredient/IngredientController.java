@@ -32,9 +32,9 @@ public class IngredientController {
     }
 
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public void createNewIngredient(@RequestBody Ingredient ingredient){
-        ingredientService.addNewIngredient(ingredient);
+    @RequestMapping(value = "/create/{ingredientTypeId}", method = RequestMethod.POST)
+    public void createNewIngredient(@PathVariable("ingredientTypeId") Long ingredientTypeId, @RequestBody Ingredient ingredient){
+        ingredientService.addNewIngredient(ingredient, ingredientTypeId);
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,12 +34,27 @@ public class IngredientService {
     }
 
 
-    public void addNewIngredient(Ingredient ingredient) {
+    public void addNewIngredient(Ingredient ingredient, Long ingredientTypeId) {
+        Optional<IngredientType> ingredientTypeOptional = ingredientTypeRepository.findById(ingredientTypeId);
+        if (!ingredientTypeOptional.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "ingredient type could not be found");
+        }
         Optional<Ingredient> ingredientOptional = ingredientRepository.findIngredientByName(ingredient.getName());
         if (ingredientOptional.isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "name taken");
         }
+        if(ingredientTypeOptional.get().getIngredients()!=null){
+            ingredientTypeOptional.get().getIngredients().add(ingredient);
+        }else
+        {
+            List<Ingredient> ingredients = new ArrayList<>();
+            ingredients.add(ingredient);
+            ingredientTypeOptional.get().setIngredients(ingredients);
+        }
+        ingredientTypeRepository.save(ingredientTypeOptional.get());
+        ingredient.setIngredientType(ingredientTypeOptional.get());
         ingredientRepository.save(ingredient);
     }
 

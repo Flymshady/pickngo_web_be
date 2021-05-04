@@ -45,17 +45,19 @@ class IngredientServiceTest {
         //given
         Ingredient ingredient = new Ingredient(
                 "name",
-                2.0,
-                new IngredientType()
+                2.0
         );
+        IngredientType ingredientType = new IngredientType(1L,"name");
+        given(ingredientTypeRepository.findById(ingredientType.getId())).willReturn(Optional.of(ingredientType));
         //when
-        underTest.addNewIngredient(ingredient);
+        underTest.addNewIngredient(ingredient, ingredientType.getId());
         //then
         ArgumentCaptor<Ingredient> ingredientArgumentCaptor = ArgumentCaptor.forClass(Ingredient.class);
         verify(ingredientRepository).save(ingredientArgumentCaptor.capture());
         Ingredient captured = ingredientArgumentCaptor.getValue();
 
-        assertThat(captured).isEqualTo(ingredient);
+        assertThat(captured.getName()).isEqualTo(ingredient.getName());
+        assertThat(captured.getIngredientType()).isEqualTo(ingredientType);
     }
     @Test
     void willThrowWhenNameIsTakenInAddNewIngredient() {
@@ -65,10 +67,28 @@ class IngredientServiceTest {
                 2.0,
                 new IngredientType()
         );
+        IngredientType ingredientType = new IngredientType(1L,"name");
+        given(ingredientTypeRepository.findById(ingredientType.getId())).willReturn(Optional.of(ingredientType));
         given(ingredientRepository.findIngredientByName(ingredient.getName())).willReturn(Optional.of(ingredient));
         //then
-        assertThatThrownBy(() ->underTest.addNewIngredient(ingredient))
+        assertThatThrownBy(() ->underTest.addNewIngredient(ingredient, ingredientType.getId()))
                 .isInstanceOf(ResponseStatusException.class).withFailMessage("name taken");
+        verify(ingredientRepository, never()).save(any());
+
+    }
+    @Test
+    void willThrow2WhenNameIsTakenInAddNewIngredient() {
+        //given
+        Ingredient ingredient = new Ingredient(
+                "name",
+                2.0,
+                new IngredientType()
+        );
+        IngredientType ingredientType = new IngredientType(1L,"name");
+        given(ingredientTypeRepository.findById(ingredientType.getId())).willReturn(Optional.empty());
+        //then
+        assertThatThrownBy(() ->underTest.addNewIngredient(ingredient, ingredientType.getId()))
+                .isInstanceOf(ResponseStatusException.class).withFailMessage("ingredient type could not be found");
         verify(ingredientRepository, never()).save(any());
 
     }

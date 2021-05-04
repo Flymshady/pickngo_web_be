@@ -41,6 +41,10 @@ public class Ingredient {
         this.price = price;
         this.ingredientType = ingredientType;
     }
+    public Ingredient(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public Ingredient(){
 
